@@ -47,16 +47,12 @@ int main (void){
         Rectangle snake_rec = {snake.position.x, snake.position.y, snake.size.x, snake.size.y};
 
         if(box.active == true){
-        Rectangle box_rec = {box.position.x, box.position.y, box.size.x, box.size.y};
-        
-        if(CheckCollisionRecs(snake_rec, box_rec)){
-            snake.size.y = snake.size.y+50;
-            box.active = false;
+            Rectangle box_rec = {box.position.x, box.position.y, box.size.x, box.size.y};
+            if(CheckCollisionRecs(snake_rec, box_rec)){
+                snake.size.y = snake.size.y+50;
+                box.active = false;
+            }
         }
-
-        }
-
-
 
         /*-------------------------------------------------------*/
         /*----------------------Controls-------------------------*/
