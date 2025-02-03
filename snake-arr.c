@@ -15,6 +15,14 @@ typedef struct{
 typedef struct{
     Vector2 position;
     Vector2 size;
+    Vector2 velocity;
+    float speed;
+    bool active;
+}body_t;
+
+typedef struct{
+    Vector2 position;
+    Vector2 size;
     bool active;
 } eatable_t;
 
@@ -23,9 +31,14 @@ int main (void){
     InitWindow(800, 600, "SNAKE");
     
     snake_t snake = {{100, 100}, {20, 20}, {10, 0}, 100};
+    body_t body = {snake.position.x, snake.position.y, snake.size.x, snake.size.y, snake.velocity.x, snake.velocity.y, snake.speed, false};
+
     eatable_t box = {300, 300, 20, 20, true};
 
     while (!WindowShouldClose()) {
+
+        float followSpeed = 0.1f;  // Adjust this to change the speed of following
+        body.position = Vector2Lerp(body.position, snake.position, followSpeed);
 
         float delta_time = GetFrameTime();
 
@@ -45,7 +58,7 @@ int main (void){
         if(box.active == true){
             Rectangle box_rec = {box.position.x, box.position.y, box.size.x, box.size.y};
             if(CheckCollisionRecs(snake_rec, box_rec)){
-                snake.size.y = snake.size.y+50;
+                body.active = true;
                 box.active = false;
             }
         }
@@ -86,6 +99,10 @@ int main (void){
 
         if(box.active == true){
         DrawRectangle(box.position.x, box.position.y, box.size.x, box.size.y, WHITE);
+        }
+
+        if(body.active == true){
+            DrawRectangle(body.position.x, body.position.y, body.size.x, body.size.y, GRAY);
         }
 
     EndDrawing();
