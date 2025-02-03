@@ -22,11 +22,8 @@ int main (void){
     SetTargetFPS(60);
     InitWindow(800, 600, "SNAKE");
     
-
     snake_t snake = {{100, 100}, {20, 20}, {10, 0}, 100};
     eatable_t box = {300, 300, 20, 20, true};
-
-
 
     while (!WindowShouldClose()) {
 
@@ -38,7 +35,6 @@ int main (void){
 
         snake.velocity = Vector2Scale(Vector2Normalize(snake.velocity), snake.speed);
         snake.position = Vector2Add(snake.position, Vector2Scale(snake.velocity, delta_time));
-
 
         /*-------------------------------------------------------*/
         /*----------------------Game-logic-----------------------*/
@@ -58,26 +54,25 @@ int main (void){
         /*----------------------Controls-------------------------*/
         /*-------------------------------------------------------*/
 
-
-        if(IsKeyDown(KEY_W))
+        if(IsKeyDown(KEY_W) && snake.velocity.y < 9)
         {
             snake.velocity.y = -10;
             snake.velocity.x = 0;
         }
 
-        if(IsKeyDown(KEY_A))
+        if(IsKeyDown(KEY_A) && snake.velocity.x < 9)
         {
             snake.velocity.y = 0;
             snake.velocity.x = -10;
         }
 
-        if(IsKeyDown(KEY_S))
+        if(IsKeyDown(KEY_S) && snake.velocity.y > -9)
         {
             snake.velocity.y = 10;
             snake.velocity.x = 0;
         }
 
-        if(IsKeyDown(KEY_D))
+        if(IsKeyDown(KEY_D) && snake.velocity.x > -9)
         {
             snake.velocity.y = 0;
             snake.velocity.x = 10;
