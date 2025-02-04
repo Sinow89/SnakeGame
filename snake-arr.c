@@ -43,6 +43,8 @@ int main (void){
     for (int i = 0; i < 10; i++) {
         box[i].position.x = 200 + i * 50;
         box[i].position.y = 200 + i * 25;
+        box[i].size.x = 15;
+        box[i].size.y = 15;      
         box[i].active = true;
     }
 
@@ -84,7 +86,7 @@ int main (void){
 
         for (int i = 0; i < 10; i++) {
             if(box[i].active == true){
-                Rectangle box_rec = {box[i].position.x, box[i].position.y, 20, 20};
+                Rectangle box_rec = {box[i].position.x, box[i].position.y, box[i].size.x, box[i].size.y};
                 if(CheckCollisionRecs(snake_rec, box_rec)){
                     if (body_number < MAX_BODIES) {
                     bodies[body_number].active = true;
@@ -132,7 +134,7 @@ int main (void){
         //Drawing of active Rectangles
         for (int i = 0; i < 10; i++){
             if (box[i].active == true){
-                DrawRectangle(box[i].position.x, box[i].position.y, 20, 20, WHITE);
+                DrawRectangle(box[i].position.x, box[i].position.y, box[i].size.x, box[i].size.y, WHITE);
             }
         }
 
