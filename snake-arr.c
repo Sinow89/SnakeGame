@@ -38,6 +38,14 @@ int main (void){
 
     body_t bodies[MAX_BODIES];
 
+    eatable_t box[10];
+
+    for (int i = 0; i < 10; i++) {
+        box[i].position.x = 200 + i * 50;
+        box[i].position.y = 200 + i * 25;
+        box[i].active = true;
+    }
+
     // Initialize first body at snake's position and the rest behind it
     for (int i = 0; i < MAX_BODIES; i++) {
         bodies[i].position = (Vector2){snake.position.x - (i * 20), snake.position.y};
@@ -45,8 +53,6 @@ int main (void){
         bodies[i].speed = snake.speed;
         bodies[i].active = false;
     }
-
-    eatable_t box = {300, 300, 20, 20, true};
 
     while (!WindowShouldClose()) {
 
@@ -76,14 +82,16 @@ int main (void){
 
         Rectangle snake_rec = {snake.position.x, snake.position.y, snake.size.x, snake.size.y};
 
-        if(box.active == true){
-            Rectangle box_rec = {box.position.x, box.position.y, box.size.x, box.size.y};
-            if(CheckCollisionRecs(snake_rec, box_rec)){
-                if (body_number < MAX_BODIES) {
-                bodies[body_number].active = true;
-                body_number++;  // Move to the next body for the next box collision
+        for (int i = 0; i < 10; i++) {
+            if(box[i].active == true){
+                Rectangle box_rec = {box[i].position.x, box[i].position.y, 20, 20};
+                if(CheckCollisionRecs(snake_rec, box_rec)){
+                    if (body_number < MAX_BODIES) {
+                    bodies[body_number].active = true;
+                    body_number++;  // Move to the next body for the next box collision
+                    }
+                    box[i].active = false;
                 }
-                box.active = false;
             }
         }
 
@@ -121,8 +129,11 @@ int main (void){
 
         DrawRectangle(snake.position.x, snake.position.y, snake.size.x, snake.size.y, GRAY);
 
-        if(box.active == true){
-        DrawRectangle(box.position.x, box.position.y, box.size.x, box.size.y, WHITE);
+        //Drawing of active Rectangles
+        for (int i = 0; i < 10; i++){
+            if (box[i].active == true){
+                DrawRectangle(box[i].position.x, box[i].position.y, 20, 20, WHITE);
+            }
         }
 
         for (int i = 0; i < MAX_BODIES; i++) {
