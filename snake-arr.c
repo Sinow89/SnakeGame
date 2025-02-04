@@ -32,15 +32,16 @@ int main (void){
     SetTargetFPS(60);
     InitWindow(800, 600, "SNAKE");
     int body_number = 0;
+    int box_amount = 10;
     
     snake_t snake = {{100, 100}, {20, 20}, {10, 0}, 100};
     body_t body = {snake.position.x, snake.position.y, snake.size.x, snake.size.y, snake.velocity.x, snake.velocity.y, snake.speed, false};
 
     body_t bodies[MAX_BODIES];
 
-    eatable_t box[10];
+    eatable_t box[box_amount];
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < box_amount; i++) {
         box[i].position.x = 200 + i * 50;
         box[i].position.y = 200 + i * 25;
         box[i].size.x = 15;
@@ -84,7 +85,7 @@ int main (void){
 
         Rectangle snake_rec = {snake.position.x, snake.position.y, snake.size.x, snake.size.y};
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < box_amount; i++) {
             if(box[i].active == true){
                 Rectangle box_rec = {box[i].position.x, box[i].position.y, box[i].size.x, box[i].size.y};
                 if(CheckCollisionRecs(snake_rec, box_rec)){
@@ -132,7 +133,7 @@ int main (void){
         DrawRectangle(snake.position.x, snake.position.y, snake.size.x, snake.size.y, GRAY);
 
         //Drawing of active Rectangles
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < box_amount; i++){
             if (box[i].active == true){
                 DrawRectangle(box[i].position.x, box[i].position.y, box[i].size.x, box[i].size.y, WHITE);
             }
