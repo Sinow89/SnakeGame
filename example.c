@@ -34,27 +34,35 @@
 // };
 
 #include <stdio.h>
+#include <stdlib.h>
 
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
 
+void print_list(Node* head) {
+    Node * current = head;
 
+    while (current != NULL) {
+        printf("%d\n", current->data);
+        current = current->next;
+    }
+}
 
 int main() {
 
 
-    // Structure to represent the singly linked list
-struct Node {
-  
-  // Data field - can be of any type and count
-  int data;
-  
-  // Pointer to the next node
-  Node* next;
-};
+Node* head = NULL;
 
-    int a = 99;
-    int b = 1;
-    
-    printf("Sum of %d and %d is %d", a, b,
-           a + b);
+head = (Node*) malloc(sizeof(Node));
+head->data = 2;
+
+head->next = (Node *) malloc(sizeof(Node));
+head->next->data = 3;
+
+print_list(head);
+
+
 }
 
