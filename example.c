@@ -36,13 +36,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
+typedef struct snake_body {
     int data;
-    struct Node* next;
-} Node;
+    struct snake_body* next;
+} snake_body;
 
-void print_list(Node* head) {
-    Node * current = head;
+void print_list(snake_body* head) {
+    snake_body* current = head;
 
     while (current != NULL) {
         printf("%d\n", current->data);
@@ -52,13 +52,12 @@ void print_list(Node* head) {
 
 int main() {
 
+snake_body* head = NULL;
 
-Node* head = NULL;
-
-head = (Node*) malloc(sizeof(Node));
+head = (snake_body*) malloc(sizeof(snake_body));
 head->data = 2;
 
-head->next = (Node *) malloc(sizeof(Node));
+head->next = (snake_body*) malloc(sizeof(snake_body));
 head->next->data = 3;
 
 print_list(head);
